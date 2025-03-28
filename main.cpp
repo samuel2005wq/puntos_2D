@@ -1,23 +1,60 @@
 #include <iostream>
 #include <string>
+#include <sstream>
 #include "point2d.h"
 using namespace std;
 
 int main()
 {
-    // Se declaran las variables
+    std::string input;
     double x1, y1, x2, y2;
 
-    // Se piden los valores al usuario
-    cout << "Introduce las coordenadas del primer punto (x1 y y1): ";
-    cin >> x1 >> y1;
+    // Leer el primer punto
+    std::cout << "Introduce las coordenadas del primer punto (x1 y y1), o presiona Enter para dejarlo vacío: ";
+    std::getline(std::cin, input); // Leer la línea completa
 
-    cout << "Introduce las coordenadas del segundo punto (x2 y y2): ";
-    cin >> x2 >> y2;
+    point2d p1(0.0, 0.0); // Punto vacío por defecto
 
-    // Se crea un objeto de la clase point2d
-    point2d p1(x1, y1);
-    point2d p2(x2, y2);
+    if (!input.empty()) // Si la entrada no está vacía
+    // Separa las coordenadas x1 y y1 y las asigna a x1 y y1
+    {
+        std::istringstream ss(input); // Usar istringstream para separar las coordenadas
+        if (ss >> x1 >> y1)           // Intenta leer las coordenadas
+        {
+            p1 = point2d(x1, y1); // Asigna las coordenadas al punto
+        }
+        else
+        {
+            std::cout << "Entrada no válida. Se usará un punto vacío.\n";
+        }
+    }
+    else
+    {
+        std::cout << "Punto vacío asignado.\n";
+    }
+
+    // Leer el segundo punto
+    std::cout << "Introduce las coordenadas del segundo punto (x2 y y2), o presiona Enter para dejarlo vacío: ";
+    std::getline(std::cin, input); // Leer la línea completa
+
+    point2d p2(0.0, 0.0); // Punto vacío por defecto
+
+    if (!input.empty())
+    {
+        std::istringstream ss(input); // Usar istringstream para separar las coordenadas
+        if (ss >> x2 >> y2)           // Intenta leer las coordenadas
+        {
+            p2 = point2d(x2, y2); // Asigna las coordenadas al punto
+        }
+        else
+        {
+            std::cout << "Entrada no válida. Se usará un punto vacío.\n";
+        }
+    }
+    else
+    {
+        std::cout << "Punto vacío asignado.\n";
+    }
 
     // Se imprime el resultado
     cout << "Puntos creados:" << endl;
